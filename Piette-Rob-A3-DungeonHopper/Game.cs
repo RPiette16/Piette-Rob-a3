@@ -30,6 +30,8 @@ public class Game
         player.renderPlayer();
         enemy.renderEnemy();
         platform.renderPlatforms();
+        player.movePlayer();
     }
 }
+
 

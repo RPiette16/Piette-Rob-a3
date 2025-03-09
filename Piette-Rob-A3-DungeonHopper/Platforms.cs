@@ -28,7 +28,7 @@ namespace MohawkGame2D
                 new Platform(0, 550, 100, 50),
                 new Platform(150, 450, 50, 50),
                 new Platform(250, 550, 50, 50),
-                new Platform(350, 550, 50, 50),
+                new Platform(350, 500, 50, 50),
                 new Platform(400, 400, 100, 50),
                 new Platform(550, 550, 200, 50),
                 new Platform(750, 450, 50, 50),
