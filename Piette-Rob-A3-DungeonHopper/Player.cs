@@ -10,15 +10,11 @@ namespace MohawkGame2D
 {
   public class Player
     {
-        Vector2 position;
-        public void Render()
+        public void renderPlayer()
         {
             //Draw Character
             Draw.FillColor = Color.Magenta;
             Draw.Rectangle(10, 510, 30, 30);
-            
         }
-
-   
     }
 }

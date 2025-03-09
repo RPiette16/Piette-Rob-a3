@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Piette_Rob_A3_DungeonHopper
+namespace MohawkGame2D
 {
-    class Enemies
+   public class Enemy
     {
+        public void renderEnemy()
+        {
+            Draw.FillColor = Color.Red;
+            Draw.Triangle(225, 300, 240, 330, 210, 330);
+        }
     }
 }
