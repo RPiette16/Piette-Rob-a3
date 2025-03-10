@@ -15,6 +15,7 @@ namespace MohawkGame2D
         public int Width { get; set; }
         public int Height { get; set; }
         public int Speed { get; set; } = 5;
+        public int VerticalSpeed { get; set; } = 0;
         public bool IsJumping { get; set; } = false;
         public bool IsFalling { get; set; } = false;
 
@@ -41,9 +42,10 @@ namespace MohawkGame2D
             {
                 X -= Speed;
             }
-            if (Input.IsKeyboardKeyDown(KeyboardInput.Space))
+            if (Input.IsKeyboardKeyDown(KeyboardInput.Space) && !IsJumping)
             {
-                Y -= Speed;
+                IsJumping = true;
+                VerticalSpeed = -10;
             }
         }
     }
