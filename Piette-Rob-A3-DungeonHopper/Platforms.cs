@@ -50,5 +50,18 @@ namespace MohawkGame2D
                 Draw.Rectangle(platform.X, platform.Y, platform.Width, platform.Height);
             }
         }
+
+        public bool CheckCollision(Player player)
+        {
+            // Check if the player is falling and the player's bottom edge is within the platform
+            if (player.VerticalSpeed > 0 &&
+                player.X + player.Width > X && player.X < X + Width && // Horizontal overlap
+                player.Y + player.Height <= Y + player.VerticalSpeed &&  // Player above the platform
+                player.Y + player.Height + player.VerticalSpeed >= Y)   // Player falling onto the platform
+            {
+                return true; // Collision detected, the player is landing on this platform
+            }
+            return false; // No collision
+        }
     }
 }

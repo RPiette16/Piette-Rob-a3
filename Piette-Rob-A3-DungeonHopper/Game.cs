@@ -54,55 +54,13 @@ public class Game
         enemy.renderEnemy();
         platform.renderPlatforms();
         player.movePlayer();
-        HandlePlayerCollision();
-    }
-
-    public void HandlePlayerCollision()
-    {
-        bool isOnGround = false;
-
-        // Check player collision with all platforms
-        foreach (var p in platforms)
+        player.updateMovement(platforms);
+        foreach (var platform in platforms)
         {
-            // Check for collision
-            if (player.X + player.Width > p.X && player.X < p.X + p.Width &&
-                player.Y + player.Height > p.Y && player.Y < p.Y + p.Height)
-            {
-                // Handle horizontal collision (e.g., left/right movement)
-                if (player.Y + player.Height <= p.Y)
-                {
-                    // Player is on top of a platform, stop falling and set to platform's top
-                    player.Y = p.Y - player.Height;
-                    player.VerticalSpeed = 0;
-                    player.IsJumping = false;
-                    isOnGround = true;
-                    break;
-                }
-            }
-        }
-
-        // If the player is not on the ground, apply gravity
-        if (!isOnGround)
-        {
-            player.VerticalSpeed += 1; // Gravity effect
-        }
-
-        // Update the player's vertical position
-        player.Y += player.VerticalSpeed;
-
-        // Check if the player is falling too far
-        if (player.Y > 600) // Assuming 600 is the bottom of the screen
-        {
-            player.Y = 600;
-            player.VerticalSpeed = 0;
-        }
-
-        // If the player is jumping, allow them to continue moving upwards
-        if (player.IsJumping)
-        {
-            player.Y += player.VerticalSpeed;
+            platform.renderPlatforms();
         }
     }
+
 }
     
 
