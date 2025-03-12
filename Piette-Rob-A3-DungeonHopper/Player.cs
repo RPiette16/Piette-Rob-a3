@@ -78,5 +78,6 @@ namespace MohawkGame2D
             if (VerticalSpeed > 10)
                 VerticalSpeed = 10;
         }
+        
     }
 }   

@@ -57,9 +57,9 @@ public class Game
         platform.renderPlatforms();
         player.movePlayer();
         player.updateMovement(platforms);
-        if (enemy.CheckPlayerCollision(player))
+        if (enemy.CheckCollisionWithPlayer(player))
         {
-            EndGame(); 
+            EndGame();  // Trigger game over if a collision is detected
         }
         renderGoal();
         if (player.Y > 600)
@@ -72,6 +72,7 @@ public class Game
         Window.ClearBackground(Color.Red);
         Text.Draw("Game Over!", 400, 300);
     }
+    
     public void renderGoal()
     {
         int goalX = 0;
