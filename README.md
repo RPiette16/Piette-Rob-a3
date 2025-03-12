@@ -1,1 +1,2 @@
 # Piette-Rob-a3
+Hello and Welcome to Dungeon Hopper a short and sweet platformer when you (the purple square) must navigate a series of platforms to reach your goal (green square) with the left and right arrows and spacebar to jump. While you are navigating the platforms be careful of the enemies (red triangles) that move throughout the dungeon, one hit and its Game Over also take care not to fall bellow the platforms on the bottom floor or you will meet the same fate. Do you have what it takes to navigate the dungeon and escape with your life? Lets find out!
