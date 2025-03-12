@@ -15,8 +15,8 @@ public class Game
     Player player = new Player();
     Enemy enemy = new Enemy();
     Platform platform = new Platform(0, 0, 0, 0);
-
-    // A list of platforms
+   
+    // list of platforms
     Platform[] platforms = new Platform[]
     {
         new Platform(0, 550, 100, 50),
@@ -42,6 +42,7 @@ public class Game
     {
         Window.SetTitle("Dungeon Hopper");
         Window.SetSize(800, 600);
+         
     }
 
     /// <summary>
@@ -52,16 +53,63 @@ public class Game
         Window.ClearBackground(Color.Black);
         player.renderPlayer();
         enemy.renderEnemy();
+        enemy.enemyPosition();
         platform.renderPlatforms();
         player.movePlayer();
         player.updateMovement(platforms);
-        foreach (var platform in platforms)
+        if (enemy.CheckPlayerCollision(player))
         {
-            platform.renderPlatforms();
+            EndGame(); 
+        }
+        renderGoal();
+        if (player.Y > 600)
+        {
+            EndGame();
         }
     }
+    public void EndGame()
+    {
+        Window.ClearBackground(Color.Red);
+        Text.Draw("Game Over!", 400, 300);
+    }
+    public void renderGoal()
+    {
+        int goalX = 0;
+        int goalY = 0;
+        int goalWidth = 50;
+        int goalHeight = 50;
 
+        // Draw the goal
+        Draw.FillColor = Color.Green;
+        Draw.Rectangle(goalX, goalY, goalWidth, goalHeight);
+
+        // Check for collision with the player
+        if (IsCollidingWithGoal(goalX, goalY, goalWidth, goalHeight))
+        {
+            WinGame();
+        }
+    }
+    public bool IsCollidingWithGoal(int goalX, int goalY, int goalWidth, int goalHeight)
+    {
+        // Check if the player’s bounding box intersects with the goal square
+        if (player.X < goalX + goalWidth &&
+            player.X + player.Width > goalX &&
+            player.Y < goalY + goalHeight &&
+            player.Y + player.Height > goalY)
+        {
+            // Collision detected, player reached the goal
+            return true;
+        }
+        return false;
+    }
+    public void WinGame() 
+    {
+        Window.ClearBackground(Color.Green);
+        Text.Draw("You Win!", 400, 300);
+    }
+  
 }
+
     
 
 

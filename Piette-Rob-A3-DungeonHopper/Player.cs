@@ -34,11 +34,11 @@ namespace MohawkGame2D
         }
         public void movePlayer()
         {
-            if (Input.IsKeyboardKeyDown(KeyboardInput.Right))
+            if (Input.IsKeyboardKeyDown(KeyboardInput.Right) && X + Width < 800)  // Right boundary
             {
                 X += Speed;
             }
-            if (Input.IsKeyboardKeyDown(KeyboardInput.Left))
+            if (Input.IsKeyboardKeyDown(KeyboardInput.Left) && X > 0)  // Left boundary
             {
                 X -= Speed;
             }
@@ -52,32 +52,31 @@ namespace MohawkGame2D
         {
             bool isOnGround = false;
 
-            // Handle platform collisions
+            // Platform collisions
             foreach (var platform in platforms)
             {
                 if (platform.CheckCollision(this))
                 {
-                    // Player is landing on the platform
-                    Y = platform.Y - Height;  // Position the player just above the platform
-                    VerticalSpeed = 0;        // Stop vertical movement (no more falling)
-                    IsJumping = false;        // Player is no longer jumping
-                    isOnGround = true;        // Player is on the ground
-                    break; // Stop checking once the player lands on the first platform
+                    
+                    Y = platform.Y - Height;  
+                    VerticalSpeed = 0;        
+                    IsJumping = false;        
+                    isOnGround = true;        
+                    break; 
                 }
             }
 
-            // If the player is not standing on a platform, apply gravity
+        
             if (!isOnGround)
             {
-                VerticalSpeed += 1; // Gravity effect
+                // Gravity effect
+                VerticalSpeed += 1; 
             }
 
-            // Update Y position based on vertical speed
             Y += VerticalSpeed;
-
-            // Prevent falling too fast by limiting vertical speed
+            // Control fall speed
             if (VerticalSpeed > 10)
-                VerticalSpeed = 10;  // Maximum fall speed
+                VerticalSpeed = 10;
         }
     }
 }   
