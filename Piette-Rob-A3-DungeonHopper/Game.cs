@@ -5,12 +5,18 @@ using System.Numerics;
 
 // The namespace your code is in.
 namespace MohawkGame2D;
-
+public enum GameState
+{
+    Running,
+    Win,
+    GameOver
+}
 /// <summary>
 ///     Your game code goes inside this class!
 /// </summary>
 public class Game
 {
+    public GameState currentState = GameState.Running;
     // Place your variables here:
     Player player = new Player();
     Enemy enemy = new Enemy();
@@ -50,29 +56,39 @@ public class Game
     /// </summary>
     public void Update()
     {
-        Window.ClearBackground(Color.Black);
-        player.renderPlayer();
-        enemy.renderEnemy();
-        enemy.enemyPosition();
-        platform.renderPlatforms();
-        player.movePlayer();
-        player.updateMovement(platforms);
-        if (enemy.CheckCollisionWithPlayer(player))
+        switch (currentState)
         {
-            EndGame();  // Trigger game over if a collision is detected
-        }
-        renderGoal();
-        if (player.Y > 600)
-        {
-            EndGame();
+            case GameState.Running:
+                Window.ClearBackground(Color.Black);
+                player.renderPlayer();
+                enemy.renderEnemy();
+                enemy.enemyPosition();
+                platform.renderPlatforms();
+                player.movePlayer();
+                player.updateMovement(platforms);
+                if (enemy.CheckCollisionWithPlayer(player))
+                {
+                    currentState = GameState.GameOver;   // Trigger game over if a collision is detected
+                }
+                renderGoal();
+                if (player.Y > 600)
+                {
+                    currentState = GameState.GameOver;
+                }
+                break;
+            
+            case GameState.Win:
+                Window.ClearBackground(Color.Green);
+                Text.Draw("You Win!", 400, 300);
+                break;
+
+           
+            case GameState.GameOver:
+                Window.ClearBackground(Color.Red);
+                Text.Draw("Game Over!", 400, 300);
+                break;
         }
     }
-    public void EndGame()
-    {
-        Window.ClearBackground(Color.Red);
-        Text.Draw("Game Over!", 400, 300);
-    }
-    
     public void renderGoal()
     {
         int goalX = 0;
@@ -87,7 +103,7 @@ public class Game
         // Check for collision with the player
         if (IsCollidingWithGoal(goalX, goalY, goalWidth, goalHeight))
         {
-            WinGame();
+            currentState = GameState.Win;
         }
     }
     public bool IsCollidingWithGoal(int goalX, int goalY, int goalWidth, int goalHeight)
@@ -103,12 +119,6 @@ public class Game
         }
         return false;
     }
-    public void WinGame() 
-    {
-        Window.ClearBackground(Color.Green);
-        Text.Draw("You Win!", 400, 300);
-    }
-  
 }
 
     
